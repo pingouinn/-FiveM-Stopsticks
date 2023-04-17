@@ -103,7 +103,7 @@ function getClosestVeh()
 	for i,_ in pairs(cfg.vehs) do
 		local tVeh = GetClosestVehicle(pos.x, pos.y, pos.z, 7.0, i, 70, 0)
 		if tVeh ~= 0 then
-			local dTest = #(pos, GetEntityCoords(tVeh))
+			local dTest = #(pos - GetEntityCoords(tVeh))
 			if dist == 0 or dTest < dist then
 				dist, tempVeh = dTest, tVeh
 			end
