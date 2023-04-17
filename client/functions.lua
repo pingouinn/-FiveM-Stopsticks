@@ -43,10 +43,7 @@ function stopStick()
 
 		-- Check for closest vehicle, every 400ms
 		if checkAgain then
-			veh = GetClosestVehicle(pos, 7.0, 0, 70)
-			if cfg.vehs[GetEntityModel(veh)] == nil then
-				veh = 0
-			end
+			veh = getClosestVeh()
 
 			checkAgain = false
 			Citizen.SetTimeout(400, function()
@@ -99,4 +96,18 @@ function createStick()
 	FreezeEntityPosition(spike, true)
 
 	RemoveWeaponFromPed(ped, stick)
+end
+
+function getClosestVeh()
+	local dist, tempVeh = 0.0, 0
+	for i,_ in pairs(cfg.vehs) do
+		local tVeh = GetClosestVehicle(pos.x, pos.y, pos.z, 7.0, i, 70, 0)
+		if tVeh ~= 0 then
+			local dTest = #(pos, GetEntityCoords(tVeh))
+			if dist == 0 or dTest < dist then
+				dist, tempVeh = dTest, tVeh
+			end
+		end	
+	end
+	return tempVeh
 end
