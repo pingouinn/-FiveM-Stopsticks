@@ -110,19 +110,8 @@ Citizen.CreateThread(function()
 						closest = GetClosestObjectOfType(pos.x, pos.y, pos.z, 1.1, GetHashKey('w_me_gclub'), false, false, false)
 					end 
 	
-					local dist, tempVeh = 0.0, 0
-					for i,_ in pairs(cfg.vehs) do
-						local tVeh = GetClosestVehicle(pos.x, pos.y, pos.z, 7.0, i, 70, 0)
-						if tVeh ~= 0 then
-							local dTest = #(pos, GetEntityCoords(tVeh))
-							if dist == 0 or dTest < dist then
-								dist, tempVeh = dTest, tVeh
-							end
-						end	
-					end
-					if tempVeh ~= 0 then
-						veh = tempVeh
-					end
+					
+					veh = getClosestVeh()
 
 					newCheck2 = false
 					Citizen.SetTimeout(400, function()
